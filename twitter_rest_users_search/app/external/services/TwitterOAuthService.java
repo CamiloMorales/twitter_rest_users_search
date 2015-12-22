@@ -44,17 +44,15 @@ public class TwitterOAuthService implements OAuthService
 	public Promise<JsonNode> getSearchResults(RequestToken token, String authVerifier, String query_string)
 	{
 		RequestToken accessToken = oauthHelper.retrieveAccessToken(token, authVerifier);
-		WSRequestHolder request = WS.url("https://api.twitter.com/1.1/users/search.json?q="+query_string.replace(" ", "%20")) //This is a bug in the play-java-ws API, thats why I have to include manually the query on the query.
-					                .setQueryParameter("q", query_string); //This seems not to work because of the bug in play-java-ws although it doesnt throw any errors.
+		WSRequestHolder request = WS.url("https://api.twitter.com/1.1/users/search.json?q="+query_string.replace(" ", "%20")+"&count=1") //This is a bug in the play-java-ws API, thats why I have to include manually the query on the query.
+				.setQueryParameter("q", query_string) //This seems not to work because of the bug in play-java-ws although it doesnt throw any errors.
+				.setQueryParameter("count", "1");
 
 		WSRequestHolder request_authenticated = request.sign(new OAuthCalculator(key, accessToken));
 
 		Promise<Response> result = request_authenticated.get();
-
 		Promise<JsonNode> promiseOfJson = result.map(Functions.responseToJson);
-		
-		//System.out.println("RESULTS: "+promiseOfJson.get());
-		
+
 		return promiseOfJson;	
 	}
 }

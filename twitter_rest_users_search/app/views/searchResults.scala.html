@@ -1,21 +1,26 @@
-@(message: String)
+@(rdf: String, jsonld: String)
 
 <!DOCTYPE html>
-
 <html>
 	<head>
-		<title>Twitter query results</title>
-		<script type="text/javascript" src="prettify.js"></script>
-		<link rel="stylesheet" type="text/css" href="prettify.css">
-		<link rel="stylesheet" type="text/css" href="sons.css">
+		<title>TWITTER REST USERS QUERY RESULTS</title>
+
+		<script type="text/javascript" src="@routes.Assets.at("prettify.js")"></script>
+		<link rel="stylesheet" type="text/css" href="@routes.Assets.at("def.css")">
+		<link rel="stylesheet" type="text/css" href="@routes.Assets.at("prettify.css")">				
 	</head>
-	
-	<body onload="prettyprint()">
-	
-		<PRE class="prettyprint linenums lang-java">
-			@message
-		<CODE>
-		
+	<body onload="prettyPrint()">
+		<br>	
+		<div>
+			<b> This is the FOAF RDF:</b>		
+			<PRE class="prettyprint linenums lang-xml">@rdf</CODE>
+		</div>
+		<br>
+		<br>	
+		<div>
+			<b> This is the final JSON-LD representation:</b>
+			<PRE class="prettyprint linenums lang-json">@jsonld</CODE>
+		</div>
 	</body>
 </html>
 
