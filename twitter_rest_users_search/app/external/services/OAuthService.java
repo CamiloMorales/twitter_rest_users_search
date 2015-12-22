@@ -8,6 +8,5 @@ import play.libs.OAuth.RequestToken;
 public interface OAuthService
 {
 	public Tuple<String, RequestToken> retrieveRequestToken(String callbaclUrl);
-	
 	public Promise<JsonNode> getSearchResults(RequestToken token, String authVerifier, String query_string);
 }

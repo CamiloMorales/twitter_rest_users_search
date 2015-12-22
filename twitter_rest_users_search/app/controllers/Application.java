@@ -2,6 +2,8 @@ package controllers;
 
 import java.util.Map;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.typesafe.config.ConfigFactory;
+
 import external.services.OAuthService;
 import external.services.TwitterOAuthService;
 import play.libs.F.Promise;
@@ -22,8 +24,8 @@ import org.json.simple.parser.JSONParser;
 public class Application extends Controller
 {    
 	private static final OAuthService service = new TwitterOAuthService(
-			"ETHtNspalsDQo70I9wLCSt5nX",
-			"IiPEHtoCaw7oYBN3MHcLt45OqxJ0qpIMkuqxjDegLIpdryHA9j"
+			ConfigFactory.load().getString("consumer.key"),
+			ConfigFactory.load().getString("consumer.secret")
 			);
     
     public static Result searchTwitter()
@@ -46,50 +48,31 @@ public class Application extends Controller
     public static Result searchTwitterCallback()
     {
     	RequestToken token = new RequestToken(flash("request_token"), flash("request_secret"));
-    	String authVerifier = request().getQueryString("oauth_verifier");
-    	
+    	String authVerifier = request().getQueryString("oauth_verifier");  	
     	String search = flash("search");
-    	
-    	Promise<JsonNode> search_results_json = service.getSearchResults(token, authVerifier, search);
-    	
+  
+    	Promise<JsonNode> search_results_json = service.getSearchResults(token, authVerifier, search);    	
     	String json_results = search_results_json.get().toString();
-
-    	//System.out.println("RESULTS: "+json_results);
-
     	String json_final = json_results.toString().substring(1, json_results.toString().length()-1);
-    	
-    	System.out.println("FINAL RESULTS: "+json_final);
-    	
-    	
-    	
     	
     	OutputStream os = new ByteArrayOutputStream();
     	
-    	
     	try 
     	{
-			// read the json file
-//			FileReader reader = new FileReader(filePath);
-
 			JSONParser jsonParser = new JSONParser();
 			JSONObject jsonObject = (JSONObject) jsonParser.parse(json_final);
 
-			// get a String from the JSON object
 			String firstName =  (String) jsonObject.get("name");
 			System.out.println("The first name is: " + firstName);
 			
 			String screen_name =  (String) jsonObject.get("screen_name");
 			System.out.println("The screen_name is: " + screen_name);
 			
-			// some definitions
 			String personURI    = "http://somewhere/"+screen_name;
 			String foaf_name    = firstName;
 
-			// create an empty Model
 			Model model = ModelFactory.createDefaultModel();
 
-			// create the resource
-			//   and add the properties cascading style
 			Resource johnSmith
 			  = model.createResource(personURI)
 			         .addProperty(FOAF.name, foaf_name)
@@ -99,30 +82,12 @@ public class Application extends Controller
 //			                           .addProperty(VCARD.Given, givenName)
 //			                           .addProperty(VCARD.Family, familyName));
 			
-			
-			
 			model.write(os, "JSON-LD");
-			
-			System.out.println("FINAL_OUTPUT: "+os.toString());
-
 		}
     	catch (Exception ex)
     	{
 			ex.printStackTrace();
 		}
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
     	
     	return ok(views.html.searchResults.render(os.toString()));
     }

@@ -29,7 +29,7 @@ public class Functions
 	public static Function<Throwable, JsonNode> searchError = new Function<Throwable, JsonNode>()
 	{
 		@Override
-		public JsonNode apply(Throwable t)// throws Throwable
+		public JsonNode apply(Throwable t)
 		{
 			Logger.error("Failed to execute search", t);
 			return Json.parse("{\"error\": \"failed to execute query search\"}");
