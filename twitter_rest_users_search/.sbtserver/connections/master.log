@@ -1,0 +1,28 @@
+New log file opened at Fri Dec 18 03:22:58 CET 2015 by 3207@camilo-N56JR
+Taking next connection to: 43126
+New client attempting to connect on port: 54447-43126
+  Address = /127.0.1.1:43126
+This client on port 54447 has uuid ba7527d9-f1d8-4853-b52d-e9d3f23cbd5f configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
+Connected Clients: activator-ba7527d9-f1d8-4853-b52d-e9d3f23cbd5f
+Taking next connection to: 43126
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 43126
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 43126
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 43126
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 43126
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 43126
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 43126
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 43126
